@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">雷神通讯录</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="profile">个人资料</string>
+    <string name="message">发送信息</string>
+    <string name="quit">退出</string>
+    <string name="action_help">获取帮助</string>
+    <string name="lbusername">请输入用户名</string>
+    <string name="lbpassword">请输入密码</string>
+    <string name="phone">手机号:</string>
+    <string name="name">姓名:</string>
+    <string name="btnlogin">登录</string>
+    <string name="btnsign">注册</string>
+    <string name="username">用户名</string>
+    <string name="welcomeStr">欢迎使用雷霆小管家</string>
+    <string name="gender">性别:</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="usertype">用户类别:</string>
+    <string-array name="usertype_value">
+        <item>本组成员</item>
+        <item>本部门成员</item>
+        <item>老师</item>
+        <item>外星人≖‿≖✧</item>
+    </string-array>
+    <string-array name="item_menu">
+        <item>查看</item>
+        <item>删除</item>
+    </string-array>
+    <string name="hobby">爱好:</string>
+    <string name="basketball">篮球</string>
+    <string name="football">足球</string>
+    <string name="pingpong">乒乓球</string>
+    <string name="txt_username_tip">请输入用户名</string>
+    <string name="txt_password_tip">请输入密码</string>
+
+
+    <string name="title_activity_resign">resignActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_resign_me">注册新成员</string>
+    <string name="title_activity_home">主页</string>
+    <string name="title_activity_add_person">添加新成员</string>
+    <string name="title_activity_view_person">名片</string>
+    <string-array name="choose_button">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+
+    <string name="title_activity_add">addActivity</string>
+    <string name="title_activity_view">viewActivity</string>
+    <string name="title_activity_capture">CaptureActivity</string>
+    <string name="QRTip">点击下边的按钮使用二维码添加:</string>
+</resources>

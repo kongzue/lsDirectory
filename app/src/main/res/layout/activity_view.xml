@@ -1,0 +1,191 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="login.stx.com.stxlogin.ResignMeActivity"
+    android:background="#ffffffff">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/name"
+        android:id="@+id/textView3"
+        android:layout_marginLeft="38dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_x="105dp"
+        android:layout_y="98dp" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/phone"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/userName"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_marginTop="33dp"
+        android:layout_x="105dp"
+        android:layout_y="139dp" />
+
+<!--
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gender"
+        android:id="@+id/textView5"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/editText2"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_x="105dp"
+        android:layout_y="195dp" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hobby"
+        android:id="@+id/textView6"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/radioGroup"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_x="24dp"
+        android:layout_y="300dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/usertype"
+        android:id="@+id/textView7"
+        android:layout_below="@+id/spinner"
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_marginTop="36dp"
+        android:layout_x="24dp"
+        android:layout_y="250dp" />
+
+
+-->
+
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="225dp"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#50B018"
+        android:adjustViewBounds="false" />
+
+
+    <!--<ImageView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:id="@+id/imageView3"
+        android:layout_x="0dp"
+        android:layout_y="0dp"
+        android:background="#ff61b800" />-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/title_activity_view_person"
+        android:id="@+id/textView"
+        android:layout_x="37dp"
+        android:layout_y="32dp"
+        android:textColor="#ffffffff"
+        android:textSize="20dp" />
+
+    <ImageView
+        android:layout_width="43dp"
+        android:layout_height="55dp"
+        android:id="@+id/imageView5"
+        android:layout_x="0dp"
+        android:layout_y="19dp"
+        android:clickable="true"
+        android:onClick="backOnClick"
+        android:background="@drawable/btn_back" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="张三"
+        android:textSize="24sp"
+        android:id="@+id/view_name"
+        android:layout_x="0dp"
+        android:layout_y="150dp"
+        android:textColor="#ff000000"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="18555555555"
+        android:id="@+id/view_phoneNum"
+        android:textSize="18sp"
+        android:layout_x="0dp"
+        android:layout_y="183dp"
+        android:textColor="#9fffffff"
+        android:gravity="center" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_x="0dp"
+        android:layout_y="0dp">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:id="@+id/img_main_output"
+            android:layout_x="83dp"
+            android:layout_y="259dp"
+            android:layout_marginTop="257dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:id="@+id/btn_callPhone"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="btnCall"
+            android:background="@drawable/btn_view_call" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_x="0dp"
+        android:layout_y="75dp">
+
+        <ImageView
+            android:layout_width="63dp"
+            android:layout_height="65dp"
+            android:id="@+id/imgPeopleIcon"
+            android:layout_x="148dp"
+            android:layout_y="78dp"
+            android:background="@drawable/user_ico"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+</AbsoluteLayout>
