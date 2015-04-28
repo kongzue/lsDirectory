@@ -19,12 +19,15 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS person" +
                 "(_id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, phone VARCHAR, info TEXT)");
-        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"≥¨∏Á", "18875050386", ""});
-        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"–§∂∫", "18888888888", ""});
-        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"Ã∑√¿≈Æ", "18888888888", ""});
-        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"∫…ª®", "18888888888", ""});
-        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"—ÓπÛÂ˙", "18888888888", ""});
-        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"¡ıÀß∏Á", "18888888888", ""});
+        db.execSQL("CREATE TABLE IF NOT EXISTS user" +
+                "(_id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, password VARCHAR)");
+        db.execSQL("INSERT INTO user VALUES(null, ?, ?)", new Object[]{"chaoshen", "123456"});
+//        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"≥¨∏Á", "18875050386", ""});
+//        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"–§∂∫", "18888888888", ""});
+//        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"Ã∑√¿≈Æ", "18888888888", ""});
+//        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"∫…ª®", "18888888888", ""});
+//        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"—ÓπÛÂ˙", "18888888888", ""});
+//        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"¡ıÀß∏Á", "18888888888", ""});
 
 
 //        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"–§∂∫", "18502339836", ""});

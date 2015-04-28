@@ -208,16 +208,6 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    public int getScrollY() {               //ªÒ»°
-        View c = lv.getChildAt(0);
-        if (c == null) {
-            return 0;
-        }
-        int firstVisiblePosition =1;//lv.getFirstVisiblePosition();
-        int top = c.getTop();
-        return -top + firstVisiblePosition * c.getHeight() ;
-    }
-
     public void callPhoneNumber(String phoneNum){
         Intent intent=new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNum));
         startActivity(intent);
@@ -440,7 +430,7 @@ public class MainActivity extends BaseActivity {
         map_title.put("phone", "");
         map_title.put("icon", 0);
         map_title.put("resID", 0);
-        map_title.put("titleBKG", R.drawable.title_cs);
+        map_title.put("titleBKG", R.drawable.title_add);
         datas.add(map_title);
         for (Person person : persons) {
                                                                                                                             //for (int i=0;i<obj.length;i++) {
