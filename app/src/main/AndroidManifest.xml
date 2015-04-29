@@ -3,12 +3,14 @@
     package="simpleadapter.stx.com.simpleadapter" >
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application
         android:allowBackup="true"
@@ -37,15 +39,17 @@
         </activity>
         <activity
             android:name=".CaptureActivity"
-            android:label="@string/title_activity_capture"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            >
+            android:label="@string/title_activity_capture"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ResultActivity"
             android:label="@string/title_activity_view"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login">
         </activity>
     </application>
 

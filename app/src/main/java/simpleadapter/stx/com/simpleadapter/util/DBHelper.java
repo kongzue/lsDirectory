@@ -19,9 +19,18 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS person" +
                 "(_id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, phone VARCHAR, info TEXT)");
+
+
+        //假设拥有的用户数据库
         db.execSQL("CREATE TABLE IF NOT EXISTS user" +
                 "(_id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, password VARCHAR)");
         db.execSQL("INSERT INTO user VALUES(null, ?, ?)", new Object[]{"chaoshen", "123456"});
+
+        //本地保存登录的用户信息
+        db.execSQL("CREATE TABLE IF NOT EXISTS localuser" +
+                "(_id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR, password VARCHAR,phone VARCHAR)");
+
+        //初始化的通讯录
 //        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"超哥", "18875050386", ""});
 //        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"肖逗", "18888888888", ""});
 //        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"谭美女", "18888888888", ""});

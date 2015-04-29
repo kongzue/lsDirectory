@@ -26,7 +26,7 @@ public class DBManager {
      * add persons
      * @param persons
      */
-    public void add(List<Person> persons) {
+    public void addPerson(List<Person> persons) {
         db.beginTransaction();  //开始事务
         try {
             for (Person person : persons) {
@@ -84,10 +84,46 @@ public class DBManager {
         return c;
     }
 
+    public String queryDB(String strDatabase, String findColumn, String strWhere) {
+        Cursor c = db.rawQuery("SELECT * FROM " + strDatabase + " " + strWhere, null);
+        String resultStr = "";
+        try {
+            while (c.moveToNext()) {
+                resultStr = c.getString(c.getColumnIndex(findColumn));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            c.close();
+        }
+
+        return resultStr;
+    }
+
+    public void insertDB(String strDatabase, String values) {
+        db.beginTransaction();  //开始事务
+        db.execSQL("INSERT INTO " + strDatabase + " VALUES(" + values + ")");
+        db.setTransactionSuccessful();
+        db.endTransaction();
+    }
+
     /**
      * close database
      */
     public void closeDB() {
         db.close();
+    }
+
+    public void InitializeChaoShenDB() {
+        db.beginTransaction();  //开始事务
+        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"超哥", "18875050386", ""});
+        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"肖逗", "18502339836", ""});
+        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"谭美女", "15334513069", ""});
+        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"荷花", "18723549123", ""});
+        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"杨贵妃", "18883339682", ""});
+        db.execSQL("INSERT INTO person VALUES(null, ?, ?, ?)", new Object[]{"刘帅哥", "13310237646", ""});
+
+        db.setTransactionSuccessful();
+        db.endTransaction();
     }
 }

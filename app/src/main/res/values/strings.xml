@@ -15,7 +15,7 @@
     <string name="btnlogin">登录</string>
     <string name="btnsign">注册</string>
     <string name="username">用户名</string>
-    <string name="welcomeStr">欢迎使用雷霆小管家</string>
+    <string name="welcomeStr">登录您的账号密码即可立即同步到您的通讯录</string>
     <string name="gender">性别:</string>
     <string name="male">男</string>
     <string name="female">女</string>
@@ -44,6 +44,8 @@
     <string name="title_activity_resign_me">注册新成员</string>
     <string name="title_activity_home">主页</string>
     <string name="title_activity_add_person">添加新成员</string>
+    <string name="title_activity_SignOn">登录</string>
+    <string name="login_error">登陆遇到问题？</string>
     <string name="title_activity_view_person">名片</string>
     <string-array name="choose_button">
         <item>男</item>
@@ -54,4 +56,5 @@
     <string name="title_activity_view">viewActivity</string>
     <string name="title_activity_capture">CaptureActivity</string>
     <string name="QRTip">点击下边的按钮使用二维码添加:</string>
+    <string name="title_activity_login">登录到团队</string>
 </resources>

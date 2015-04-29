@@ -22,7 +22,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.util.Hashtable;
 
-import simpleadapter.stx.com.simpleadapter.util.ViewCallButton;
+import simpleadapter.stx.com.simpleadapter.util.MyButton;
 
 
 public class viewActivity extends BaseActivity {
@@ -60,7 +60,7 @@ public class viewActivity extends BaseActivity {
         Integer[] mButtonState = {R.drawable.view_call_button,
                 R.drawable.btn_view_call, R.drawable.btn_view_call_down };
         Button mButton = (Button) findViewById(R.id.btn_callPhone);
-        ViewCallButton myButton = new ViewCallButton(this);
+        MyButton myButton = new MyButton(this);
         mButton.setBackgroundDrawable(myButton.setbg(mButtonState));
     }
 

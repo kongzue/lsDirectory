@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import simpleadapter.stx.com.simpleadapter.LoginActivity;
 import simpleadapter.stx.com.simpleadapter.MainActivity;
 import simpleadapter.stx.com.simpleadapter.R;
 
@@ -59,6 +60,15 @@ public class MyAdapter extends SimpleAdapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + textView.getText().toString()));
+                    context.startActivity(intent);
+                }
+            });
+
+            final ImageView imageTitle = (ImageView) convertView.findViewById(R.id.ImageTitle);
+            imageTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, LoginActivity.class);
                     context.startActivity(intent);
                 }
             });

@@ -1,0 +1,140 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    tools:context=".MainActivity">
+
+
+    <!--<TextView
+        android:text="@string/lbusername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"n
+        android:layout_marginTop="120dp" />-->
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:id="@+id/TxtUserName"
+        android:gravity="center"
+        android:hint="@string/txt_username_tip"
+        android:layout_marginTop="34dp"
+        android:layout_below="@+id/remember"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <!--<TextView
+        android:text="@string/lbpassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/TxtUserName"
+        android:layout_centerHorizontal="true" />
+        -->
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/TxtPassword"
+        android:gravity="center"
+        android:hint="@string/txt_password_tip"
+        android:layout_below="@+id/TxtUserName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text=""
+        android:id="@+id/btnLogin"
+        android:onClick="login"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/btn_login" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/remember"
+        android:text="@string/welcomeStr"
+        android:textSize="12dp"
+        android:textColor="#74273912"
+        android:layout_below="@+id/imageView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:id="@+id/imageView3"
+        android:background="#ff000000"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/title_activity_SignOn"
+        android:id="@+id/textView"
+        android:textColor="#ffffffff"
+        android:textSize="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="37dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="32dp" />
+
+    <ImageView
+        android:layout_width="43dp"
+        android:layout_height="55dp"
+        android:id="@+id/imageView5"
+        android:clickable="true"
+        android:onClick="backOnClick"
+        android:background="@drawable/btn_back"
+        android:layout_marginTop="19dp" />
+
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:text=""
+        android:id="@+id/btnRegist"
+        android:onClick="regist"
+        android:clickable="true"
+        android:background="@drawable/ic_regist"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="17dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="32dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
+        android:text="@string/login_error"
+        android:textSize="12dp"
+        android:textColor="#ff008dff"
+        android:onClick="whenProblem"
+        android:clickable="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/TxtPassword"
+        android:layout_alignRight="@+id/TxtPassword"
+        android:layout_alignEnd="@+id/TxtPassword" />
+
+</RelativeLayout>

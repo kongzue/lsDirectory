@@ -46,6 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import simpleadapter.stx.com.simpleadapter.util.DBHelper;
 import simpleadapter.stx.com.simpleadapter.util.DBManager;
 import simpleadapter.stx.com.simpleadapter.util.MyAdapter;
 import simpleadapter.stx.com.simpleadapter.util.MyButton;
@@ -63,6 +64,7 @@ public class MainActivity extends BaseActivity {
     private Button addBtn;
     private DBManager mgr;
     private ImageView imgSmallTitle;
+    private int titlePic_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +107,18 @@ public class MainActivity extends BaseActivity {
 
 
         registerForContextMenu(lv);
+
+
+        String localUserName = mgr.queryDB("localuser", "name", "");
+        if (localUserName.equalsIgnoreCase("chaoshen")) {
+            titlePic_id = R.drawable.title_cs;
+            ((ImageView) findViewById(R.id.ImageTitle2)).setImageResource(R.drawable.title_cs_blur);
+            showMessageByToast(">>用户" + localUserName + "已登录");
+
+        } else {
+            titlePic_id = R.drawable.title_add;
+        }
+        //String localUserName=mgr.queryDB("localuser","user","");
 
         datas=new ArrayList<Map<String,Object>>();
 //
@@ -202,8 +216,6 @@ public class MainActivity extends BaseActivity {
                         }
                     }
                 }
-                if (c != null)
-                    Log.i("scroll:",""+c.getTop()+";"+c.getHeight());
             }
         });
     }
@@ -349,6 +361,7 @@ public class MainActivity extends BaseActivity {
                 addData.put("name", name);
                 addData.put("phone", phone);
                 addData.put("icon", R.drawable.user_ico);
+                addData.put("titleBKG", R.drawable.img_alpha);
                 datas.add(addData);
                 sa.notifyDataSetChanged();
                 showMessageInTaskBar("超神陆战队·通讯录", "联系人" + name + "已添加！", "添加成功！");
@@ -356,7 +369,7 @@ public class MainActivity extends BaseActivity {
                 //数据库
                 ArrayList<Person> persons = new ArrayList<Person>();
                 persons.add(new Person(name, phone, ""));
-                mgr.add(persons);
+                mgr.addPerson(persons);
                 //Toast.makeText(MainActivity.this, data.getStringExtra("addname")+";"+data.getStringExtra("addphone"),Toast.LENGTH_SHORT).show();
             }
         }
@@ -430,7 +443,7 @@ public class MainActivity extends BaseActivity {
         map_title.put("phone", "");
         map_title.put("icon", 0);
         map_title.put("resID", 0);
-        map_title.put("titleBKG", R.drawable.title_add);
+        map_title.put("titleBKG", titlePic_id);
         datas.add(map_title);
         for (Person person : persons) {
                                                                                                                             //for (int i=0;i<obj.length;i++) {
@@ -464,6 +477,7 @@ public class MainActivity extends BaseActivity {
             map.put("icon", resID);
             map.put("resID", resID);
             map.put("titleBKG", R.drawable.img_alpha);
+            Log.i(person.name, "" + R.drawable.img_alpha);
             datas.add(map);
         }
         sa=new MyAdapter(this,datas,R.layout.layout_item,new String[]{"name","phone","icon","resID","titleBKG"},
