@@ -60,7 +60,7 @@
         android:layout_alignEnd="@+id/userName"
         android:layout_x="155dp"
         android:layout_y="130dp" />
-<!--
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,80 +109,80 @@
                 android:layout_toEndOf="@+id/radioButton"
                 android:layout_weight="0.30" />
         </RadioGroup>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hobby"
-            android:id="@+id/textView6"
-            android:layout_marginTop="28dp"
-            android:layout_below="@+id/radioGroup"
-            android:layout_alignLeft="@+id/textView5"
-            android:layout_alignStart="@+id/textView5"
-            android:layout_x="24dp"
-            android:layout_y="300dp" />
-
-            <Spinner
-                android:layout_width="222dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinner"
-                android:entries="@array/usertype_value"
-                android:layout_alignTop="@+id/textView6"
-                android:layout_alignLeft="@+id/radioGroup"
-                android:layout_alignStart="@+id/radioGroup"
-                android:layout_alignRight="@+id/editText2"
-                android:layout_alignEnd="@+id/editText2"
-                android:layout_x="100dp"
-                android:layout_y="248dp" />
-
+    <!--
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/usertype"
-                android:id="@+id/textView7"
-                android:layout_below="@+id/spinner"
-                android:layout_alignLeft="@+id/textView6"
-                android:layout_alignStart="@+id/textView6"
-                android:layout_marginTop="36dp"
+                android:text="@string/hobby"
+                android:id="@+id/textView6"
+                android:layout_marginTop="28dp"
+                android:layout_below="@+id/radioGroup"
+                android:layout_alignLeft="@+id/textView5"
+                android:layout_alignStart="@+id/textView5"
                 android:layout_x="24dp"
-                android:layout_y="250dp" />
+                android:layout_y="300dp" />
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/basketball"
-                android:id="@+id/checkBox"
-                android:layout_below="@+id/spinner"
-                android:layout_alignLeft="@+id/spinner"
-                android:layout_alignStart="@+id/spinner"
-                android:layout_marginTop="27dp"
-                android:layout_x="265dp"
-                android:layout_y="295dp" />
+                <Spinner
+                    android:layout_width="222dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner"
+                    android:entries="@array/usertype_value"
+                    android:layout_alignTop="@+id/textView6"
+                    android:layout_alignLeft="@+id/radioGroup"
+                    android:layout_alignStart="@+id/radioGroup"
+                    android:layout_alignRight="@+id/editText2"
+                    android:layout_alignEnd="@+id/editText2"
+                    android:layout_x="100dp"
+                    android:layout_y="248dp" />
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/football"
-                android:id="@+id/checkBox2"
-                android:layout_above="@+id/button"
-                android:layout_toRightOf="@+id/checkBox"
-                android:layout_toEndOf="@+id/checkBox"
-                android:layout_x="190dp"
-                android:layout_y="295dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/usertype"
+                    android:id="@+id/textView7"
+                    android:layout_below="@+id/spinner"
+                    android:layout_alignLeft="@+id/textView6"
+                    android:layout_alignStart="@+id/textView6"
+                    android:layout_marginTop="36dp"
+                    android:layout_x="24dp"
+                    android:layout_y="250dp" />
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pingpong"
-                android:id="@+id/checkBox3"
-                android:layout_above="@+id/button"
-                android:layout_toRightOf="@+id/checkBox2"
-                android:layout_toEndOf="@+id/checkBox2"
-                android:layout_x="100dp"
-                android:layout_y="295dp" />
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/basketball"
+                    android:id="@+id/checkBox"
+                    android:layout_below="@+id/spinner"
+                    android:layout_alignLeft="@+id/spinner"
+                    android:layout_alignStart="@+id/spinner"
+                    android:layout_marginTop="27dp"
+                    android:layout_x="265dp"
+                    android:layout_y="295dp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/football"
+                    android:id="@+id/checkBox2"
+                    android:layout_above="@+id/button"
+                    android:layout_toRightOf="@+id/checkBox"
+                    android:layout_toEndOf="@+id/checkBox"
+                    android:layout_x="190dp"
+                    android:layout_y="295dp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pingpong"
+                    android:id="@+id/checkBox3"
+                    android:layout_above="@+id/button"
+                    android:layout_toRightOf="@+id/checkBox2"
+                    android:layout_toEndOf="@+id/checkBox2"
+                    android:layout_x="100dp"
+                    android:layout_y="295dp" />
 
 
--->
+    -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -237,7 +237,7 @@
         android:layout_height="200dp"
         android:id="@+id/img_main_output"
         android:layout_x="83dp"
-        android:layout_y="259dp"
+        android:layout_y="300dp"
         android:background="@drawable/btn_qr"
         android:onClick="OnQRClick"
         android:clickable="true"/>
@@ -248,7 +248,7 @@
         android:text="@string/QRTip"
         android:id="@+id/textView5"
         android:layout_x="83dp"
-        android:layout_y="240dp"
+        android:layout_y="280dp"
         android:textColor="#30000000" />
 
 </AbsoluteLayout>

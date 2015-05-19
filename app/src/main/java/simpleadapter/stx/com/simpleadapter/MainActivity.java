@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarActivity;
@@ -22,6 +24,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.Window;
 import android.widget.AbsListView;
@@ -30,6 +33,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -39,7 +43,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -50,6 +71,7 @@ import simpleadapter.stx.com.simpleadapter.util.DBHelper;
 import simpleadapter.stx.com.simpleadapter.util.DBManager;
 import simpleadapter.stx.com.simpleadapter.util.MyAdapter;
 import simpleadapter.stx.com.simpleadapter.util.MyButton;
+import simpleadapter.stx.com.simpleadapter.util.MyMD5;
 import simpleadapter.stx.com.simpleadapter.util.Person;
 
 
@@ -65,6 +87,8 @@ public class MainActivity extends BaseActivity {
     private DBManager mgr;
     private ImageView imgSmallTitle;
     private int titlePic_id;
+    public static String localUserName = "";
+    private Bitmap bmpDefaultPic = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,14 +133,31 @@ public class MainActivity extends BaseActivity {
         registerForContextMenu(lv);
 
 
-        String localUserName = mgr.queryDB("localuser", "name", "");
-        if (localUserName.equalsIgnoreCase("chaoshen")) {
-            titlePic_id = R.drawable.title_cs;
-            ((ImageView) findViewById(R.id.ImageTitle2)).setImageResource(R.drawable.title_cs_blur);
-            showMessageByToast(">>用户" + localUserName + "已登录");
+        localUserName = mgr.queryDB("localuser", "name", "");
 
-        } else {
+        String path = "/data/data/simpleadapter.stx.com.simpleadapter/files/titlepic_" + localUserName + ".png";
+        File file=new File(path);
+        ImageView iv = (ImageView) findViewById(R.id.ImageTitle2);
+        if (file.exists()){
+            bmpDefaultPic = null;
+            if (bmpDefaultPic == null)
+                bmpDefaultPic = BitmapFactory.decodeFile(path, null);
+            iv.setImageBitmap(bmpDefaultPic);
+        }else{
+            Log.i("localUserName",localUserName);
+            if (!localUserName.equals(""))
+                iv.setImageResource(R.drawable.title_logined);
+        }
+
+
+        //titlePic_id=R.drawable.title_cs;
+
+        if (localUserName.equalsIgnoreCase("")) {
             titlePic_id = R.drawable.title_add;
+        } else {
+            //titlePic_id = R.drawable.title_cs;
+            //((ImageView) findViewById(R.id.ImageTitle2)).setImageResource(R.drawable.title_cs_blur);
+            showMessageByToast(">>用户" + localUserName + "已登录");
         }
         //String localUserName=mgr.queryDB("localuser","user","");
 
@@ -169,14 +210,13 @@ public class MainActivity extends BaseActivity {
 //                new int[]{R.id.textView2,R.id.textView3});
         refreshList();
 
-        lv.setAdapter(sa);
-
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView personName = (TextView) view.findViewById(R.id.textView2);
                 TextView phoneNumber = (TextView) view.findViewById(R.id.textView3);
+                TextView TxtPersonSex = (TextView) view.findViewById(R.id.sex);
 //                ImageView callBtn = (ImageView) view.findViewById(R.id.btn_callItem);
 
 //                callBtn.setOnClickListener(new View.OnClickListener() {
@@ -192,6 +232,7 @@ public class MainActivity extends BaseActivity {
                 Intent intent = new Intent();
                 intent.putExtra("viewname", personName.getText().toString());
                 intent.putExtra("viewphone", phoneNumber.getText().toString());
+                intent.putExtra("viewsex",TxtPersonSex.getText().toString());
                 intent.putExtra("resID", resID);
                 intent.setClass(MainActivity.this, viewActivity.class);
 
@@ -206,18 +247,61 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                View c=lv.getChildAt(0);
-                if (c != null){
-                    if(c.getHeight()>=200){
-                        if(c.getTop()<-370 ){
-                            imgSmallTitle.setVisibility(View.VISIBLE);
-                        }else{
-                            imgSmallTitle.setVisibility(View.GONE);
+                View c = lv.getChildAt(0);
+                if (c != null) {
+                    if (c.getHeight() >= 200) {
+//                        if(c.getTop()<-370 ){
+                        //imgSmallTitle.setVisibility(View.VISIBLE);
+//                        }else{
+//                            imgSmallTitle.setVisibility(View.GONE);
+//                        }
+                        Log.i(">>>h:", c.getTop() + "");
+                        if (c.getTop() > -340) {
+                            imgSmallTitle.setTop(c.getTop());
+                        } else {
+                            imgSmallTitle.setTop(-340);
                         }
+
                     }
                 }
             }
         });
+
+        new AsyncTask<String, Void, Object>() {
+            @Override
+            protected Object doInBackground(String... params) {
+                String url = "http://kongzue.sinaapp.com/LSTXL/getVersion";
+                String result = "";
+                try {
+                    //创建连接
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost post = new HttpPost(url);
+                    //设置参数，仿html表单提交
+                    List<NameValuePair> paramList = new ArrayList<NameValuePair>();
+                    BasicNameValuePair param = new BasicNameValuePair("ver", "preview0033");
+                    paramList.add(param);
+
+                    post.setEntity(new UrlEncodedFormEntity(paramList, HTTP.UTF_8));
+                    //发送HttpPost请求，并返回HttpResponse对象
+                    HttpResponse httpResponse = httpClient.execute(post);
+                    // 判断请求响应状态码，状态码为200表示服务端成功响应了客户端的请求
+                    if (httpResponse.getStatusLine().getStatusCode() == 200) {
+                        //获取返回结果
+                        result = EntityUtils.toString(httpResponse.getEntity());
+                        //showMessageByToast(result);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //showMessageByToast("错误!");
+                }
+                return result;
+            }
+
+            protected void onPostExecute(Object result) {
+                super.onPostExecute(result);
+                //showMessageByToast("" + result);
+            }
+        }.execute();
     }
 
     public void callPhoneNumber(String phoneNum){
@@ -252,7 +336,7 @@ public class MainActivity extends BaseActivity {
         AdapterView.AdapterContextMenuInfo acm=(AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
         String phoneNumber=((TextView)getViewByPosition(acm.position, lv).findViewById(R.id.textView3)).getText().toString();
         String personName=((TextView)getViewByPosition(acm.position, lv).findViewById(R.id.textView2)).getText().toString();
-
+        String personSex=((TextView)getViewByPosition(acm.position, lv).findViewById(R.id.sex)).getText().toString();
         switch(item.getItemId()) {
             case 0 :
                 //do 查看
@@ -263,6 +347,7 @@ public class MainActivity extends BaseActivity {
                 Intent intent=new Intent();
                 intent.putExtra("viewname",personName);
                 intent.putExtra("viewphone",phoneNumber);
+                intent.putExtra("viewsex",personSex);
                 intent.putExtra("resID",resID);
                 intent.setClass(this,viewActivity.class);
 
@@ -278,12 +363,13 @@ public class MainActivity extends BaseActivity {
                 // do 删除
                 Log.i("itemclick", "1");
 
-                Person person = new Person(personName, phoneNumber, "");
+                Person person = new Person(personName, phoneNumber, "",personSex);
                 mgr.delete(person);
                 datas.remove(acm.position);
                 sa.notifyDataSetChanged();
                 showMessageInTaskBar("超神陆战队·通讯录","联系人"+personName+"已删除","成功删除联系人！");
-                //refreshList();
+
+                TableSynchronize();
                 break;
             default:
                 return super.onContextItemSelected(item);
@@ -357,24 +443,77 @@ public class MainActivity extends BaseActivity {
             if(requestCode==1){
                 String name=data.getStringExtra("addname");
                 String phone =data.getStringExtra("addphone");
+                String sex =data.getStringExtra("addsex");
                 Map<String,Object> addData= new HashMap<String,Object>();
                 addData.put("name", name);
                 addData.put("phone", phone);
+                addData.put("sex", sex);
                 addData.put("icon", R.drawable.user_ico);
-                addData.put("titleBKG", R.drawable.img_alpha);
-                datas.add(addData);
-                sa.notifyDataSetChanged();
-                showMessageInTaskBar("超神陆战队·通讯录", "联系人" + name + "已添加！", "添加成功！");
+                //addData.put("titleBKG", R.drawable.img_alpha);
 
                 //数据库
                 ArrayList<Person> persons = new ArrayList<Person>();
-                persons.add(new Person(name, phone, ""));
-                mgr.addPerson(persons);
+                persons.add(new Person(name, phone, "",sex));
+                if(mgr.addPerson(persons,this)){
+                    datas.add(addData);
+                    sa.notifyDataSetChanged();
+                    showMessageInTaskBar("超神陆战队·通讯录", "联系人" + name + "已添加！", "添加成功！");
+                    TableSynchronize();
+                }
+
                 //Toast.makeText(MainActivity.this, data.getStringExtra("addname")+";"+data.getStringExtra("addphone"),Toast.LENGTH_SHORT).show();
             }
         }
     }
 
+    public void TableSynchronize(){
+        new AsyncTask<String, Void, Object>() {
+            @Override
+            protected Object doInBackground(String... params) {
+                String url = "http://kongzue.sinaapp.com/LSTXL/UpdateUserTable";
+                String result = "";
+                if (localUserName.equals("")){
+                    return "";
+                }
+                try {
+                    //创建连接
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost post = new HttpPost(url);
+                    //设置参数，仿html表单提交
+                    List<NameValuePair> paramList = new ArrayList<NameValuePair>();
+                    BasicNameValuePair param = new BasicNameValuePair("username", localUserName);
+                    BasicNameValuePair param1 = new BasicNameValuePair("table", mgr.getAllUserTable());
+                    BasicNameValuePair param2 = new BasicNameValuePair("key", MyMD5.MD5(localUserName + new SimpleDateFormat("yyyyMMdd").format(new Date())));
+                    paramList.add(param);
+                    paramList.add(param1);
+                    paramList.add(param2);
+
+                    post.setEntity(new UrlEncodedFormEntity(paramList, HTTP.UTF_8));
+                    //发送HttpPost请求，并返回HttpResponse对象
+                    HttpResponse httpResponse = httpClient.execute(post);
+                    // 判断请求响应状态码，状态码为200表示服务端成功响应了客户端的请求
+                    if (httpResponse.getStatusLine().getStatusCode() == 200) {
+                        //获取返回结果
+                        result = EntityUtils.toString(httpResponse.getEntity());
+                        //showMessageByToast(result);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //showMessageByToast("错误!");
+                }
+                return result;
+            }
+
+            protected void onPostExecute(Object result) {
+                super.onPostExecute(result);
+                if (!((String)result).equals("")){
+                    showMessageByToast("同步成功！");
+                }else{
+                    showMessageByToast("同步失败！");
+                }
+            }
+        }.execute();
+    }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK
@@ -437,19 +576,23 @@ public class MainActivity extends BaseActivity {
 
     public void refreshList() {
         List<Person> persons = mgr.query();
-        Object[] obj=persons.toArray();                                                                       //for (int i=0;i<obj.length;i++) {
+        Object[] obj=persons.toArray();       //for (int i=0;i<obj.length;i++) {
         HashMap<String, Object> map_title = new HashMap<String, Object>();
         map_title.put("name", "");
         map_title.put("phone", "");
         map_title.put("icon", 0);
         map_title.put("resID", 0);
-        map_title.put("titleBKG", titlePic_id);
+        map_title.put("sex", "0");
+        map_title.put("titleBKG", R.drawable.title_add);
         datas.add(map_title);
+
+
         for (Person person : persons) {
-                                                                                                                            //for (int i=0;i<obj.length;i++) {
+           //for (int i=0;i<obj.length;i++) {
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("name", person.name);
             map.put("phone", person.phone);
+            map.put("sex", person.sex);
             int resID=0;
             switch (person.phone){
                 case "18875050386":
@@ -477,45 +620,16 @@ public class MainActivity extends BaseActivity {
             map.put("icon", resID);
             map.put("resID", resID);
             map.put("titleBKG", R.drawable.img_alpha);
-            Log.i(person.name, "" + R.drawable.img_alpha);
+            //Log.i(person.name, "" + R.drawable.img_alpha);
             datas.add(map);
         }
-        sa=new MyAdapter(this,datas,R.layout.layout_item,new String[]{"name","phone","icon","resID","titleBKG"},
-                new int[]{R.id.textView2,R.id.textView3,R.id.image_people,R.id.resID,R.id.ImageTitle});
+        sa=new MyAdapter(this,datas,R.layout.layout_item,new String[]{"name","phone","icon","resID","titleBKG","sex"},
+                new int[]{R.id.textView2,R.id.textView3,R.id.image_people,R.id.resID,R.id.ImageTitle,R.id.sex});
+
         lv.setAdapter(sa);
 
-//        for (int i=0;i<obj.length;i++) {
-//            Log.i(">>>", ((ImageView) getViewByPosition(i, lv)
-//                    .findViewById(R.id.image_people)).toString());
-//
-////            iv.setImageResource(R.drawable.btn_qr);
-//            //((ImageView) getViewByPosition(i, lv)
-//                    //.findViewById(R.id.image_people)).setImageResource(R.drawable.btn_add);
-//        }
+
     }
-
-    public void queryTheCursor(View view) {
-        Cursor c = mgr.queryTheCursor();
-        startManagingCursor(c); //托付给activity根据自己的生命周期去管理Cursor的生命周期
-        CursorWrapper cursorWrapper = new CursorWrapper(c) {
-            @Override
-            public String getString(int columnIndex) {
-                //将简介前加上年龄
-                if (getColumnName(columnIndex).equals("info")) {
-                    String phone = getString(getColumnIndex("phone"));
-                    return phone;//age + " years old, " + super.getString(columnIndex);
-                }
-                return super.getString(columnIndex);
-            }
-        };
-        //确保查询结果中有"_id"列
-        sa=new MyAdapter(this,datas,R.layout.layout_item,new String[]{"name","phone"},
-                new int[]{R.id.textView2,R.id.textView3});
-        lv.setAdapter(sa);
-    }
-
-
-
 
 
 }

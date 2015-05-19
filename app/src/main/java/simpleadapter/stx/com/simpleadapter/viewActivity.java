@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,9 @@ public class viewActivity extends BaseActivity {
     private static final int QR_WIDTH = 200;
     private static final int QR_HEIGHT = 200;
     private String RQcode;
+    private RelativeLayout QRlevel;
+
+    private String sex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +48,28 @@ public class viewActivity extends BaseActivity {
         Intent intent=getIntent();
         String Name=intent.getStringExtra("viewname");
         String phoneNum=intent.getStringExtra("viewphone");
-        int resId=Integer.parseInt(intent.getStringExtra("resID"));
+        sex = intent.getStringExtra("viewsex");
+        int resId = 0;
+        try {
+            resId = Integer.parseInt(intent.getStringExtra("resID"));
+        } catch (Exception e) {
+
+        }
         TextView txtName=(TextView)findViewById(R.id.view_name);
         txtName.setText(Name);
+
+        ImageView titleView = (ImageView) findViewById(R.id.imgTitle);
+        if (sex.equals("1")) {
+            titleView.setBackgroundColor(getResources().getColor(R.color.title_pink));
+        } else {
+            titleView.setBackgroundColor(getResources().getColor(R.color.title_green));
+        }
+
+        QRlevel = (RelativeLayout) findViewById(R.id.QRlevel);
+
         txtPhoneNum=(TextView)findViewById(R.id.view_phoneNum);
         txtPhoneNum.setText(phoneNum);
-        RQcode="LSTXL-VCARD;"+txtName.getText().toString()+";"+txtPhoneNum.getText().toString()+"";
+        RQcode = "LSTXL-VCARD;" + txtName.getText().toString() + ";" + txtPhoneNum.getText().toString() + ";" + sex + "";
         imgOutput = (ImageView)findViewById(R.id.img_main_output);
         imgProple = (ImageView)findViewById(R.id.imgPeopleIcon);
         //Toast.makeText(this,resId+"",Toast.LENGTH_SHORT).show();
@@ -118,5 +138,17 @@ public class viewActivity extends BaseActivity {
     public void btnCall(View v){
         Intent intent=new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + txtPhoneNum.getText().toString()));
         startActivity(intent);
+    }
+
+    public void imgPeopleIconClick(View v) {
+        Log.i("sdf", "imgPeopleIconClick");
+        QRlevel.clearAnimation();
+        QRlevel.setVisibility(View.VISIBLE);
+    }
+
+    public void QRlevelClick(View v) {
+        Log.i("sdf", "QRlevelClick");
+        QRlevel.clearAnimation();
+        QRlevel.setVisibility(View.GONE);
     }
 }

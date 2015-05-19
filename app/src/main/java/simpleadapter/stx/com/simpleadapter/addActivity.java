@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -16,6 +17,7 @@ public class addActivity extends BaseActivity {
 
     private EditText edName;
     private EditText edPhone;
+    private String sex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +45,16 @@ public class addActivity extends BaseActivity {
         userName=edName.getText().toString();
         userPhone=edPhone.getText().toString();
         Intent intent=new Intent();
+        if (((RadioButton)findViewById(R.id.radioButton)).isChecked()==true){
+            sex="0";
+        }else{
+            sex="1";
+        }
         if(!"".equals(userName)){
             if (!"".equals(userPhone)){
                 intent.putExtra("addname",userName);
                 intent.putExtra("addphone",userPhone);
+                intent.putExtra("addsex",sex);
                 setResult(2, intent);
                 finish();
             }else{
@@ -78,6 +86,7 @@ public class addActivity extends BaseActivity {
             if("LSTXL-VCARD".equals(strs[0])) {
                 edName.setText(strs[1]);
                 edPhone.setText(strs[2]);
+                sex=strs[3];
             }
         }catch (Exception e){
             Log.i("Exception","can't split message in addActivity.java @readNewPerson()");

@@ -57,4 +57,7 @@
     <string name="title_activity_capture">CaptureActivity</string>
     <string name="QRTip">点击下边的按钮使用二维码添加:</string>
     <string name="title_activity_login">登录到团队</string>
+    <string name="mySpace">他的位置：</string>
+    <string name="myTask">他的事项：</string>
+    <string name="myTask_tip">暂时没有事项</string>
 </resources>
