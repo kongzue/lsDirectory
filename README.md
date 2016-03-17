@@ -1,4 +1,4 @@
-# LeiShenTongXunLu
+# lsDirectory 雷神通讯录
 
 ## 简介
 
